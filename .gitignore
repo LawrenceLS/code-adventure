@@ -1,3 +1,38 @@
 # Godot 4+ specific ignores
 .godot/
-/android/
+
+# Imported resource cache
+*.import
+
+# Excluded directories
+export.cfg
+export_presets.cfg
+*.translation
+
+# Mono / C# (if used)
+.mono/
+data_*/
+mono_crash.*.json
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# IDE
+.vs/
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Builds
+build/
+exports/
+*.exe
+*.x86_64
+*.app
+*.dmg
+*.zip
+*.apk
+*.aab

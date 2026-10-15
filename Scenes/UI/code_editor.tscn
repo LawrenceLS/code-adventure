@@ -1,0 +1,119 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Scripts/UI/code_editor.gd" id="1_editor"]
+
+[node name="CodeEditor" type="CanvasLayer"]
+process_mode = 3
+layer = 10
+script = ExtResource("1_editor")
+
+[node name="Dimmer" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.6)
+
+[node name="Margin" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 28
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 28
+
+[node name="Panel" type="PanelContainer" parent="Margin"]
+
+[node name="Inner" type="MarginContainer" parent="Margin/Panel"]
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 16
+
+[node name="VBox" type="VBoxContainer" parent="Margin/Panel/Inner"]
+theme_override_constants/separation = 12
+
+[node name="Header" type="HBoxContainer" parent="Margin/Panel/Inner/VBox"]
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="Margin/Panel/Inner/VBox/Header"]
+theme_override_font_sizes/font_size = 22
+text = "📖 Spellbook"
+
+[node name="LevelTitle" type="Label" parent="Margin/Panel/Inner/VBox/Header"]
+modulate = Color(0.7, 0.78, 0.9, 1)
+theme_override_font_sizes/font_size = 18
+text = ""
+vertical_alignment = 1
+
+[node name="Spacer" type="Control" parent="Margin/Panel/Inner/VBox/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HintButton" type="Button" parent="Margin/Panel/Inner/VBox/Header"]
+text = "💡 Hint"
+
+[node name="CloseButton" type="Button" parent="Margin/Panel/Inner/VBox/Header"]
+text = "✕  (Esc)"
+
+[node name="Body" type="HBoxContainer" parent="Margin/Panel/Inner/VBox"]
+size_flags_vertical = 3
+theme_override_constants/separation = 18
+
+[node name="Left" type="VBoxContainer" parent="Margin/Panel/Inner/VBox/Body"]
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+theme_override_constants/separation = 8
+
+[node name="CodeLabel" type="Label" parent="Margin/Panel/Inner/VBox/Body/Left"]
+modulate = Color(0.7, 0.78, 0.9, 1)
+text = "Your Spell"
+
+[node name="CodeEdit" type="CodeEdit" parent="Margin/Panel/Inner/VBox/Body/Left"]
+size_flags_vertical = 3
+placeholder_text = "# Write your spell here..."
+
+[node name="ButtonRow" type="HBoxContainer" parent="Margin/Panel/Inner/VBox/Body/Left"]
+theme_override_constants/separation = 10
+
+[node name="RunButton" type="Button" parent="Margin/Panel/Inner/VBox/Body/Left/ButtonRow"]
+text = "▶  Cast Spell   (F5)"
+
+[node name="ResetButton" type="Button" parent="Margin/Panel/Inner/VBox/Body/Left/ButtonRow"]
+text = "↺  Reset"
+
+[node name="StatusLabel" type="Label" parent="Margin/Panel/Inner/VBox/Body/Left/ButtonRow"]
+modulate = Color(0.7, 0.78, 0.9, 1)
+text = "Ready"
+vertical_alignment = 1
+
+[node name="Right" type="VBoxContainer" parent="Margin/Panel/Inner/VBox/Body"]
+custom_minimum_size = Vector2(340, 0)
+theme_override_constants/separation = 8
+
+[node name="RefLabel" type="Label" parent="Margin/Panel/Inner/VBox/Body/Right"]
+modulate = Color(0.7, 0.78, 0.9, 1)
+text = "✨ Available Spells"
+
+[node name="RefScroll" type="ScrollContainer" parent="Margin/Panel/Inner/VBox/Body/Right"]
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="RefList" type="RichTextLabel" parent="Margin/Panel/Inner/VBox/Body/Right/RefScroll"]
+size_flags_horizontal = 3
+bbcode_enabled = true
+fit_content = true
+text = ""
+
+[node name="OutputPanel" type="PanelContainer" parent="Margin/Panel/Inner/VBox"]
+custom_minimum_size = Vector2(0, 120)
+
+[node name="Output" type="RichTextLabel" parent="Margin/Panel/Inner/VBox/OutputPanel"]
+size_flags_vertical = 3
+bbcode_enabled = true
+scroll_following = true
+text = "Ready."

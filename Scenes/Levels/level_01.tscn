@@ -1,0 +1,109 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://Scripts/Levels/level_base.gd" id="1_level"]
+[ext_resource type="Script" path="res://Scripts/Player/wizard_controller.gd" id="2_player"]
+[ext_resource type="Script" path="res://Scripts/Camera/game_camera.gd" id="3_camera"]
+[ext_resource type="PackedScene" path="res://Scenes/UI/code_editor.tscn" id="4_editor"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_player"]
+size = Vector2(32, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ground_left"]
+size = Vector2(600, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ground_right"]
+size = Vector2(900, 40)
+
+[node name="Level01" type="Node2D"]
+script = ExtResource("1_level")
+camera_limits = Rect2(-600, -400, 3200, 1600)
+goal_path = NodePath("Goal")
+first_hint = "Use spawn_platform(x, y) to create a platform at that position."
+second_hint = "The gap between the two ledges is too wide to jump - build a bridge!"
+solution_hint = "spawn_platform(690, 560)
+spawn_platform(790, 520)
+spawn_platform(880, 560)"
+
+[node name="Background" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="Background"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.12, 0.14, 0.25, 1)
+
+[node name="Camera" type="Camera2D" parent="."]
+script = ExtResource("3_camera")
+lookahead_distance = 90.0
+lookahead_speed = 4.0
+default_zoom = Vector2(1.25, 1.25)
+
+[node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(150, 500)
+script = ExtResource("2_player")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("RectangleShape2D_player")
+
+[node name="Visual" type="Polygon2D" parent="Player"]
+color = Color(0.5, 0.3, 0.8, 1)
+polygon = PackedVector2Array(-16, -24, 16, -24, 16, 24, -16, 24)
+
+[node name="LeftGround" type="StaticBody2D" parent="."]
+position = Vector2(300, 620)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftGround"]
+shape = SubResource("RectangleShape2D_ground_left")
+
+[node name="ColorRect" type="ColorRect" parent="LeftGround"]
+offset_left = -300.0
+offset_top = -20.0
+offset_right = 300.0
+offset_bottom = 20.0
+color = Color(0.4, 0.3, 0.2, 1)
+
+[node name="RightGround" type="StaticBody2D" parent="."]
+position = Vector2(1350, 620)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightGround"]
+shape = SubResource("RectangleShape2D_ground_right")
+
+[node name="ColorRect" type="ColorRect" parent="RightGround"]
+offset_left = -450.0
+offset_top = -20.0
+offset_right = 450.0
+offset_bottom = 20.0
+color = Color(0.4, 0.3, 0.2, 1)
+
+[node name="Goal" type="Area2D" parent="."]
+position = Vector2(1500, 555)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Goal"]
+shape = SubResource("RectangleShape2D_player")
+
+[node name="ColorRect" type="ColorRect" parent="Goal"]
+offset_left = -24.0
+offset_top = -24.0
+offset_right = 24.0
+offset_bottom = 24.0
+color = Color(1, 0.84, 0, 1)
+
+[node name="HUD" type="CanvasLayer" parent="."]
+layer = 5
+
+[node name="Hint" type="Label" parent="HUD"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -44.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Press E - Spellbook   |   WASD / Arrows to move   |   Space to jump"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CodeEditor" parent="." instance=ExtResource("4_editor")]

@@ -11,8 +11,14 @@ config_version=5
 [application]
 
 config/name="CodeAdventure"
+run/main_scene="res://Scenes/Levels/level_01.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://Assets/icon.svg"
+
+[autoload]
+
+CodeSandbox="*res://Scripts/Core/code_sandbox.gd"
+ProgressionManager="*res://Scripts/Core/progression_manager.gd"
 
 [file_customization]
 
